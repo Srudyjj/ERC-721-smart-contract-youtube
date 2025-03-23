@@ -33,6 +33,11 @@ contract Web3Builders is ERC721, ERC721Enumerable, ERC721Pausable, Ownable {
         _unpause();
     }
 
+    function withdraw(address _addr) external onlyOwner {
+        uint256 balance = address(this).balance;
+        payable(_addr).transfer(balance);
+    }
+
     function setAllowList(address[] calldata addresses ) external onlyOwner {
         for (uint256 i; i < addresses.length; i++) {
             allowList[addresses[i]] = true;
